@@ -3,7 +3,7 @@
 
 > Wrapper module for [keystone](http://keystonejs.com) to provide friendlier List api.
 
-##Features
+## Features
 * List retrival helpers in the form of `getModel()` and `getDocument()`
 * A `create()` method with alternate List definition syntax.
 
@@ -36,7 +36,7 @@ doc.save(callback);
 
 ```
 
-##List Definition
+## List Definition
 
 Keystone has an abstraction for mongoose models called `List`. The process to define a list is a bit imperative,
 so `keywrap.create()` gives it a more of a declerative
