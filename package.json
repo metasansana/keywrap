@@ -1,6 +1,6 @@
 {
   "name": "keywrap",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Wrapper around keystone for easier list retrival. ",
   "homepage": "https://github.com/metasansana/keywrap",
   "author": {
