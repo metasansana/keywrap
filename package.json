@@ -10,9 +10,6 @@
   },
   "repository": "metasansana/keywrap",
   "license": "MIT",
-  "files": [
-    "index.js"
-  ],
   "keywords": [
     "keywrap",
     "keystone"
