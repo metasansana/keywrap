@@ -1,7 +1,8 @@
 var must = require('must');
 var keystone = require('keystone');
 var def = require('./fixtures/def.js');
-var Database = require('../');
+var def_nested = require('./fixtures/def_nested');
+var keywrap = require('../');
 
 before(function() {
 
@@ -13,18 +14,18 @@ before(function() {
 		}
 	});
 	Example.register();
-	Database.use(keystone);
+	keywrap.use(keystone);
 
 });
 
 describe('retrival helper methods', function() {
 
 	it('getModel() must give you a model', function() {
-		Database.getModel('Example').must.exist();
+		keywrap.getModel('Example').must.exist();
 	});
 
 	it('getDocument() must give you a document', function() {
-		Database.getDocument('Example').must.exist();
+		keywrap.getDocument('Example').must.exist();
 	});
 
 });
@@ -33,12 +34,25 @@ describe('creation helper methods', function() {
 
 	it('create() must work', function() {
 
-		var model = Database.create(def);
+		var model = keywrap.create(def);
 		model.must.exist();
 		model.fields.name.must.exist();
 		model.fields.sku.must.exist();
 		model.fields.price.must.exist();
 		model.fields.owner.must.exist();
+	});
+
+	it('create() must work with nested fields', function() {
+
+		keywrap.create(def_nested).register();
+
+		var model = keywrap.getDocument('Customer');
+		model.must.exist();
+		model.address.must.exist();
+		model.address.billing.must.exist();
+		model.address.shipping.must.exist();
+		model.address.shipping.phone.must.exist();
+
 	});
 
 });
