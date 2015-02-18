@@ -1,11 +1,11 @@
 
 #  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image]
 
-> Wrapper module for [keystone](http://keystonejs.com) to provide friendlier List api.
+> Wrapper module for [keystone](http://keystonejs.com) to provide a friendlier List api.
 
 ## Features
 * List retrival helpers in the form of `getModel()` and `getDocument()`
-* A `create()` method with alternate List definition syntax.
+* A `create()` method with an alternate List definition syntax.
 
 ## Install
 
@@ -16,22 +16,22 @@ $ npm install --save keywrap
 ## Usage
 
 ```js
-var Keywrap = require('keywrap');
-var myModel = require('./myModel');
+var keywrap = require('keywrap');
+var definition = require('./myModel');
 
 //Give keywrap a keystone instance to use.
-Keywrap.use(require('keystone'));
+keywrap.use(require('keystone'));
 
 //Create a new model
-var model = Keywrap.create(myModel);
+var model = keywrap.create(definition);
 model.register();
 
 //Retrieve the model 
-var model = Keywrap.getModel('MyModel');
+var model = keywrap.getModel('MyModel');
 model.find().exec(callback);
 
 //Retrieve an instance of the model.
-var doc  = Keywrap.getDocument('MyModel', {name:'sana'});
+var doc  = keywrap.getDocument('MyModel', {name:'sana'});
 doc.save(callback);
 
 ```
@@ -39,7 +39,7 @@ doc.save(callback);
 ## List Definition
 
 Keystone has an abstraction for mongoose models called `List`. The process to define a list is a bit imperative,
-so `keywrap.create()` gives it a more of a declerative
+so `keywrap.create()` gives takes a more of declerative
 approach.
 
 Example List definition:
@@ -78,10 +78,14 @@ Example List definition:
 The `name`, `fields` and `layout` fields are required. `options` defaults to `{}` if not provided.
 
 `fields` describes your model just as you would in 
-plain keystone, except the `type` fields must be strings (in common letters too).
+plain keystone, except the `type` fields ~~must~~ can be strings
+(strings are in camel case).
 
-Keywrap will automatically replace them with the appropriate keystone type. The `layout` field allows you
-to describe how your fields should be added/grouped.
+Keywrap will automatically replace them with the appropriate keystone type. 
+
+The `layout` field allows you to describe how your fields should be added/grouped.
+The `@` symbol refers to some field you have already defined in
+`fields` and will be replaced with it.
 
 It is a multi-dimensional array with each key having syntax:
 
@@ -89,12 +93,9 @@ It is a multi-dimensional array with each key having syntax:
     <field-reference>   ::= <field-prefix><fields-property>
     <field-prefix>      ::= "@"
     <fields-property>   ::= Any property decleared in the fields field.
-    <header>            ::= String
+    <heading>           ::= String
  
 
-In other words, the members of each member of `layout`
-must be a string, if prefixed with `@` it is treated as a reference to a property of the `fields` property. Otherwise it is treated as a plain string that keystone
-will use as a heading.
 
 
 
