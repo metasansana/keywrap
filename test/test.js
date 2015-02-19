@@ -2,6 +2,7 @@ var must = require('must');
 var keystone = require('keystone');
 var def = require('./fixtures/def.js');
 var def_nested = require('./fixtures/def_nested');
+var def_schema = require('./fixtures/def_schema');
 var keywrap = require('../');
 
 before(function() {
@@ -52,6 +53,17 @@ describe('creation helper methods', function() {
 		model.address.billing.must.exist();
 		model.address.shipping.must.exist();
 		model.address.shipping.phone.must.exist();
+
+	});
+
+	it('create() must add schemas', function() {
+
+		keywrap.create(def_schema).register();
+		var model = keywrap.getDocument('Produce');
+		model.must.exist();
+		model.tags.must.exist();
+		model.keywords.must.exist();
+
 
 	});
 
