@@ -3,6 +3,8 @@ var keystone = require('keystone');
 var def = require('./fixtures/def.js');
 var def_nested = require('./fixtures/def_nested');
 var def_schema = require('./fixtures/def_schema');
+var def_run = require('./fixtures/def_run');
+var def_run_array = require('./fixtures/def_run_array');
 var keywrap = require('../');
 
 before(function() {
@@ -66,5 +68,30 @@ describe('creation helper methods', function() {
 
 
 	});
+
+	it('create() must run `run`', function() {
+
+		keywrap.create(def_run).register();
+		var model = keywrap.getDocument('RunProduct');
+		model.must.exist();
+		model.name.must.exist();
+		model.sku.must.exist();
+		model.price.must.exist();
+
+
+	});
+
+	it('create() must run `run` as an array', function() {
+
+		keywrap.create(def_run_array).register();
+		var model = keywrap.getDocument('RunArrayProduct');
+		model.must.exist();
+		model.name.must.exist();
+		model.sku.must.exist();
+		model.price.must.exist();
+
+	});
+
+
 
 });
