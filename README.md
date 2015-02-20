@@ -81,7 +81,7 @@ The `name`, `fields` and `layout` fields are required. `options` defaults to `{}
 
 `fields` describes your model just as you would in 
 plain keystone, except the `type` fields ~~must~~ can be strings
-(strings are in camel case).
+(strings are all lower case).
 
 Keywrap will automatically replace them with the appropriate keystone type. 
 
