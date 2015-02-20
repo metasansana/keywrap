@@ -92,7 +92,39 @@ describe('creation helper methods', function() {
 
 	});
 
-	it('define() must define a type', function() {
+	it('create() must accept function types', function() {
+
+		keywrap.create({
+			name: 'FType',
+			fields: {
+				name: String,
+				other: {
+					type: String,
+					default: 'Name'
+				},
+				another: String
+			},
+
+
+                }).register();
+
+		var model = keywrap.getDocument('FType');
+
+		model.set('name', 'Name');
+		model.set('another', 'Another');
+		model.must.exist();
+		model.name.must.exist();
+		model.other.must.exist();
+		model.another.must.exist();
+
+
+	});
+
+
+});
+
+describe('define() ', function() {
+	it('must define a type', function() {
 
 		keywrap.define('str', {
 			type: String,
@@ -110,5 +142,4 @@ describe('creation helper methods', function() {
 		model.x.must.exist();
 
 	});
-
 });
