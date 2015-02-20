@@ -6,13 +6,17 @@ module.exports = {
 	},
 	fields: {
 		name: {
-			type: 'string'
+			type: 'string',
+			default: 'name'
+
 		},
 		sku: {
-			type: 'string'
+			type: 'string',
+			default: 'sku'
 		},
 		price: {
-			type: 'money'
+			type: 'money',
+			default: '0.50',
 		},
 		owner: {
 			type: 'relationship',
