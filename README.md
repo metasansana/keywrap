@@ -6,6 +6,7 @@
 ## Features
 * List retrival helpers in the form of `getModel()` and `getDocument()`
 * A `create()` method with an alternate List definition syntax.
+* A `define()` method for storing definitions.
 
 ## Install
 
@@ -68,11 +69,12 @@ Example List definition:
 	layout: [
 		['Basic Details', '@name', '@sku', '@price'],
 		['Ownership', '@owner']
-	]
+	],
+        run: function (model, process) {
+
+        }
 
 }
-
-
 ```
 
 The `name`, `fields` and `layout` fields are required. `options` defaults to `{}` if not provided.
@@ -95,7 +97,36 @@ It is a multi-dimensional array with each key having syntax:
     <fields-property>   ::= Any property decleared in the fields field.
     <heading>           ::= String
  
+The `run` field is an optional function that will be ran after the fields
+are added to the model. The function receives two arguments: 1) The model that was 
+created 2)A process function that will convert any list definition you call it 
+with. 
 
+Example:
+```javascript
+
+  {
+    run: function(model, process) {
+
+      model.add(process({
+        name:'name'
+      });
+    }
+  }
+
+```
+
+## define()
+
+The `define()` method can be used to avoid some repetitive parts of list definitions.
+All it does is store some object by a key you specify. You can later use that key
+in the `fields` field like follows:
+
+```javascript
+keywrap.define('custom', {type:String, default:'Foo'});
+var model = keywrap.create({name:'custom'});
+model.register();
+```
 
 
 
