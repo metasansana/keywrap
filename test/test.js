@@ -107,7 +107,7 @@ describe('creation helper methods', function() {
 
 		var model = keywrap.getDocument('Test');
 		model.must.exist();
-			model.x.must.exist();
+		model.x.must.exist();
 
 	});
 
