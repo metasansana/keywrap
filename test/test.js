@@ -92,6 +92,23 @@ describe('creation helper methods', function() {
 
 	});
 
+	it('define() must define a type', function() {
 
+		keywrap.define('str', {
+			type: String,
+			default: 'finboff'
+		});
+		keywrap.create({
+			name: 'Test',
+			fields: {
+				x: 'str'
+			}
+		}).register();
+
+		var model = keywrap.getDocument('Test');
+		model.must.exist();
+			model.x.must.exist();
+
+	});
 
 });
